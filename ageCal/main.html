@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="age.css">
+    <title>Age Calculator</title>
+</head>
+
+<body>
+    <div class="container">
+        <form onsubmit="  age()">
+            <div class="top">
+                <span class="heading">Age Calculator</span>
+            </div>
+            <div class="block">
+                <p class="title">Date</p>
+                <input type="text" class="box" id="Date" minlength="1" maxlength="2" required placeholder="dd">
+                <small id="dateErr"></small>
+            </div>
+            <div class="block">
+                <p class="title">Month</p>
+                <input type="text" class="box" id="Month" minlength="1" maxlength="2" required placeholder="mm">
+                <small id="monthErr"></small>
+            </div>
+            <div class="block">
+                <p class="title">Year</p>
+                <input type="text" class="box" id="Year" minlength="4" maxlength="4" required placeholder="yyyy">
+                <small id="yearErr"></small>
+            </div>
+            <div class="submit">
+                <input type="button" id="submit" value="submit" onclick="age()">
+            </div>
+            <div id="age1">
+                <span>Age:</span>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validation(d1, m1, y1) {
+            const dateErr = document.getElementById('dateErr');
+            const monthErr = document.getElementById('monthErr');
+            const yearErr = document.getElementById('yearErr');
+
+
+
+            if (d1 == '') {
+                dateErr.innerText = '*Required'
+                return;
+            }
+            else if (isNaN(d1)) {
+                dateErr.innerText = 'Its should be Number'
+                return;
+            } else if (d1 < 0 || d1 > 30) {
+                dateErr.innerText = ' *Invalid Date'
+                return;
+            }
+
+            if (m1 == '') {
+                monthErr.innerText = '*Required'
+                return;
+            }
+            else if (isNaN(m1)) {
+                monthErr.innerText = 'Its should be Number'
+                return;
+            } else if (m1 < 0 || m1 > 12) {
+                monthErr.innerText = ' *Invalid Month'
+                return;
+
+            }
+
+            if (y1 == '') {
+                yearErr.innerText = '*required'
+                return;
+            }
+            else if (isNaN(y1)) {
+                yearErr.innerText = 'Its should be Number'
+                return;
+            }
+            // age();
+        }
+        function age() {
+            let d3 = document.getElementById('Date')
+            let d1 = d3.value;
+            let m1 = document.getElementById('Month').value;
+            let y1 = document.getElementById('Year').value;
+            let toDay = new Date();
+            let d2 = toDay.getDate();
+            let m2 = 1 + toDay.getMonth();
+            let y2 = toDay.getFullYear();
+
+            let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+            if (d1 > d2) {
+                d2 = d2 + month[m2 - 1]
+                m2 = m2 - 1;
+            }
+            if (m1 > m2) {
+                m2 = m2 + 12;
+                y2 = y2 - 1;
+            }
+            let d = d2 - d1;
+            let m = m2 - m1;
+            let y = y2 - y1;
+            validation(d1, m1, y1);
+            if (d1 == '' && m1 == '' && y1 == "") {
+                alert('Please fill inputs below ');
+            } else if (d1 == '' || m1 == '' || y1 == "") {
+                alert('plaese fill ')
+            }
+
+            if (validation) {
+                if (d1 == '' && m1 == '' && y1 == "") {
+                alert('Please fill inputs below ');
+                return ;
+            } else if (d1 == '' || m1 == '' || y1 == "") {
+                alert('plaese fill ')
+            }
+                document.getElementById('age1').innerHTML = `Your Age is ${y} years ${m} Month and ${d} Days`
+             
+            }
+
+            // document.getElementById('Date').value = " "
+            //     document.getElementById('Month').value = " "
+            //     document.getElementById('Year').value = " "
+        }
+    </script>
+</body>
+
+</html>
